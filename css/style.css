@@ -1,3 +1,5 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
 :root {
   --bg:#0f1724;
   --card:#0b1220;
@@ -7,7 +9,7 @@
 }
 
 body {
-  font-family: Inter, sans-serif;
+  font-family: "Inter", "Segoe UI", sans-serif;
   background: linear-gradient(180deg, #071029 0%, #07172a 100%);
   color:#e6eef6;
   margin:0;
@@ -112,7 +114,6 @@ th {
   color:var(--muted);
 }
 
-/* BOTÃO DE NOTAS */
 .notes-btn {
   padding:6px 10px;
   background:#1e293b;
@@ -122,11 +123,11 @@ th {
   color:#fff;
   border:1px solid rgba(255,255,255,0.1);
 }
+
 .notes-btn:hover {
   background:#334155;
 }
 
-/* Modal */
 .modal {
   position: fixed;
   left:0; top:0;
@@ -137,6 +138,7 @@ th {
   align-items:center;
   z-index:3000;
 }
+
 .modal.active {
   display:flex;
 }
@@ -175,6 +177,7 @@ th {
   border:1px solid rgba(255,255,255,0.15);
   cursor:pointer;
 }
+
 #saveNote:hover { background:#2563eb; }
 #closeModal:hover { background:#475569; }
 

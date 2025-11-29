@@ -1,5 +1,5 @@
-/* ------------------------------------------------------------
-   BLOCO 1 — BASE DE DADOS
+﻿/* ------------------------------------------------------------
+   BLOCO 1 – BASE DE DADOS
 ------------------------------------------------------------ */
 
 const leads = [
@@ -22,7 +22,7 @@ const leads = [
     status_online: "Cardápio digital genérico",
     potencial: "Alto",
     tipo_dor: "Identidade visual fraca",
-    pitch: "Site-cardápio mais bonito aumenta percepção de valor"
+    pitch: "Um site-cardápio mais bonito aumenta percepção de valor"
   },
   {
     estabelecimento: "Tio Sogro",
@@ -32,15 +32,25 @@ const leads = [
     pitch: "Análise gratuita e otimização"
   }
 ];
+
 /* ------------------------------------------------------------
-   BLOCO 2 — FUNÇÕES DE FILTRO, BUSCA, RESUMO E EXPORTAÇÃO
+   BLOCO 2 – WHATSAPP E CONTROLES
 ------------------------------------------------------------ */
+
+function openWA(estabelecimento, mensagem) {
+  const texto = `${mensagem}\n(${estabelecimento})`;
+  const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
+  window.open(url, "_blank");
+}
 
 const filterPot = document.getElementById("filterPot");
 const search = document.getElementById("search");
 const resetBtn = document.getElementById("reset");
 const exportBtn = document.getElementById("exportCSV");
 const tableBody = document.querySelector("#leadsTable tbody");
+
+filterPot.addEventListener("change", applyFilters);
+search.addEventListener("input", applyFilters);
 
 function applyFilters() {
   let arr = [...leads];
@@ -66,7 +76,6 @@ resetBtn.onclick = () => {
   applyFilters();
 };
 
-/* EXPORTAR CSV */
 exportBtn.onclick = () => {
   let csv = "Estabelecimento,Status,Potencial,Dor,Pitch\n";
   leads.forEach(r => {
@@ -79,7 +88,6 @@ exportBtn.onclick = () => {
   a.click();
 };
 
-/* RESUMO */
 function updateSummary(arr) {
   document.getElementById("totalCount").innerText = arr.length;
   document.getElementById("countVeryHigh").innerText =
@@ -87,8 +95,9 @@ function updateSummary(arr) {
   document.getElementById("countHigh").innerText =
     arr.filter(r => r.potencial === "Alto").length;
 }
+
 /* ------------------------------------------------------------
-   BLOCO 3 — RENDERIZAÇÃO DA TABELA + BOTÃO DE NOTAS
+   BLOCO 3 – RENDERIZAÇÃO DA TABELA + BOTÃO DE NOTAS
 ------------------------------------------------------------ */
 
 function renderTable(arr){
@@ -113,8 +122,9 @@ function renderTable(arr){
     `;
   });
 }
+
 /* ------------------------------------------------------------
-   BLOCO 4 — GRÁFICO (Chart.js)
+   BLOCO 4 – GRÁFICO (Chart.js)
 ------------------------------------------------------------ */
 
 let chart;
@@ -135,17 +145,31 @@ function updateChart(arr){
       labels: ["Altíssimo", "Alto"],
       datasets: [{
         label: "Quantidade",
-        data: [counts.Altíssimo, counts.Alto]
+        data: [counts.Altíssimo, counts.Alto],
+        backgroundColor: ["#ec4899", "#06b6d4"],
+        borderRadius: 8
       }]
     },
     options: {
       responsive: true,
-      plugins: { legend: { display: false } }
+      plugins: { legend: { display: false } },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { color: "#cbd5e1" },
+          grid: { color: "rgba(255,255,255,0.08)" }
+        },
+        x: {
+          ticks: { color: "#cbd5e1" },
+          grid: { display: false }
+        }
+      }
     }
   });
 }
+
 /* ------------------------------------------------------------
-   BLOCO 5 — SISTEMA DE NOTAS (LOCALSTORAGE)
+   BLOCO 5 – SISTEMA DE NOTAS (LOCALSTORAGE)
 ------------------------------------------------------------ */
 
 const notesModal = document.getElementById("notesModal");
@@ -162,7 +186,7 @@ function openNotes(estabelecimento) {
   const saved = localStorage.getItem(currentNoteKey) || "";
 
   notesText.value = saved;
-  notesTitle.innerHTML = "Notas — <b>" + estabelecimento + "</b>";
+  notesTitle.innerHTML = `Notas – <b>${estabelecimento}</b>`;
   notesModal.classList.add("active");
 }
 
@@ -177,8 +201,9 @@ saveNoteBtn.addEventListener("click", () => {
 closeModalBtn.addEventListener("click", () => {
   notesModal.classList.remove("active");
 });
+
 /* ------------------------------------------------------------
-   BLOCO 6 — INICIALIZAÇÃO
+   BLOCO 6 – INICIALIZAÇÃO
 ------------------------------------------------------------ */
 
 applyFilters();
