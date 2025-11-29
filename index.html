@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Dashboard Gastronomia - Foz do Iguaçu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<header>
+  <h1>Dashboard — Potenciais Clientes · Gastronomia</h1>
+</header>
+
+<div class="container">
+
+  <!-- PAINEL PRINCIPAL (TABELA + GRÁFICO + FILTROS) -->
+  <main class="card">
+
+    <div class="controls">
+      <label>Filtrar por Potencial:</label>
+      <select id="filterPot">
+        <option value="Todos">Todos</option>
+        <option value="Altíssimo">Altíssimo</option>
+        <option value="Alto">Alto</option>
+      </select>
+
+      <label>Pesquisar:</label>
+      <input id="search" type="search" placeholder="Buscar estabelecimento..." />
+
+      <button id="reset">Limpar</button>
+      <button id="exportCSV">Exportar CSV</button>
+    </div>
+
+    <div class="chart-wrap card">
+      <canvas id="potChart"></canvas>
+    </div>
+
+    <div class="summary">
+      <strong>Resumo rápido:</strong>
+      <p>
+        Total: <span id="totalCount">0</span> |
+        Altíssimo: <span id="countVeryHigh">0</span> |
+        Alto: <span id="countHigh">0</span>
+      </p>
+    </div>
+
+    <div class="card table-wrapper">
+      <h3>Tabela de Leads</h3>
+
+      <table id="leadsTable">
+        <thead>
+          <tr>
+            <th>Estabelecimento</th>
+            <th>Status Online</th>
+            <th>Potencial</th>
+            <th>Dor</th>
+            <th>Pitch / CTA</th>
+            <th>Notas</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+    </div>
+
+  </main>
+
+  <!-- LADO DIREITO: AÇÕES RÁPIDAS -->
+  <aside class="card">
+
+    <h2>Ações rápidas</h2>
+
+    <button class="wa-btn"
+      onclick="openWA(
+        'Tio Gil Lanches',
+        'Olá! Vi que vocês dependem bastante do iFood. Posso te mostrar como economizar taxas com pedidos diretos pelo WhatsApp?'
+      )">
+      WhatsApp — Tio Gil
+    </button>
+
+    <button class="wa-btn"
+      onclick="openWA(
+        'Dom Garcia',
+        'Olá! Vi que o site está no WordPress antigo. Posso enviar uma análise profissional gratuita?'
+      )">
+      WhatsApp — Dom Garcia
+    </button>
+
+    <button class="wa-btn"
+      onclick="openWA(
+        '2 Brothers',
+        'Olá! Seu cardápio digital é funcional, mas genérico. Posso mostrar como melhorar a identidade visual de vocês?'
+      )">
+      WhatsApp — 2 Brothers
+    </button>
+
+    <button class="wa-btn"
+      onclick="openWA(
+        'Tio Sogro',
+        'Olá! Seu site pode estar desatualizado. Posso enviar uma análise rápida mostrando melhorias?'
+      )">
+      WhatsApp — Tio Sogro
+    </button>
+
+    <p class="small">Botões abrem o WhatsApp com mensagens prontas.</p>
+
+  </aside>
+
+</div>
+
+<!-- MODAL DE NOTAS -->
+<div id="notesModal" class="modal">
+  <div class="modal-content">
+    <h2 id="notesTitle">Notas</h2>
+
+    <textarea id="notesText"></textarea>
+
+    <div class="modal-actions">
+      <button id="saveNote">Salvar</button>
+      <button id="closeModal">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- JS -->
+<script src="js/app.js"></script>
+
+</body>
+</html>
