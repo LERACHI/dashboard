@@ -2,7 +2,7 @@
    BLOCO 1 – BASE DE DADOS
 ------------------------------------------------------------ */
 
-const leads = [
+const leads = window.leadsData || [
   {
     estabelecimento: "Tio Gil Lanches",
     status_online: "iFood",
