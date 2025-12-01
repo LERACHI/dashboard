@@ -2,59 +2,126 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <title>Estratégia de Prospecção</title>
+  <title>Estrategia de Prospecao</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <header>
-    <h1>Estratégia de Prospecção</h1>
+    <h1>Estrategia de Prospecao</h1>
     <nav class="inline-nav">
       <a href="index.html">Dashboard</a>
-      <a href="leads.html">Cartões</a>
+      <a href="leads.html">Cartoes</a>
       <a href="resumo.html">Resumo</a>
-      <a href="estrategia.html">Estratégia</a>
-      <a href="analise.html">Análise</a>
+      <a href="estrategia.html">Estrategia</a>
+      <a href="analise.html">Analise</a>
       <a href="contato.html">Contato</a>
       <a href="custos.html">Custos</a>
     </nav>
   </header>
 
   <main class="card">
-    <div class="callout">
-      <strong>💡 Estratégia de Prospecção e Análise</strong>
-      <p>Próximo passo: analisar visual e tecnicamente cada estabelecimento que tem link ou presença em plataformas (iFood/Aiqfome) e priorizar os que só usam redes sociais/WhatsApp.</p>
-    </div>
+    <h3>Simulacao automatica de economia</h3>
+    <p class="small">Edite os valores e use o grafico na hora para mostrar quanto ele economiza.</p>
 
-    <h3>Lista priorizada</h3>
-    <p class="small">Status indicado na pesquisa + potencial de serviço. Use o botão para abrir o pitch no WhatsApp Web.</p>
     <div class="table-wrapper">
-      <table id="strategyTable">
+      <table class="sim-table">
         <thead>
           <tr>
-            <th>Estabelecimento</th>
-            <th>Status indicado</th>
-            <th>Potencial</th>
-            <th>Ação</th>
+            <th>Indicador</th>
+            <th>Valor estimado</th>
+            <th>Fonte</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <tr>
+            <td><strong>A.</strong> Pedidos diarios (total)</td>
+            <td>
+              <input id="simPedidosDia" type="number" min="0" value="50" />
+              <span class="small">pedidos/dia</span>
+            </td>
+            <td>Estimativa ou dado real.</td>
+          </tr>
+          <tr>
+            <td><strong>B.</strong> Ticket medio (TM)</td>
+            <td>
+              <div class="input-prefix">R$
+                <input id="simTicket" type="number" min="0" step="0.01" value="35" />
+              </div>
+            </td>
+            <td>Estimativa do valor medio de um pedido.</td>
+          </tr>
+          <tr>
+            <td><strong>C.</strong> Taxa media (iFood/Rappi)</td>
+            <td>
+              <div class="input-suffix">
+                <input id="simTaxaPlataforma" type="number" min="0" max="100" step="0.5" value="20" />%
+              </div>
+            </td>
+            <td>Taxa comum cobrada pelas plataformas de terceiros.</td>
+          </tr>
+          <tr>
+            <td><strong>D.</strong> Taxa de conversao para o site</td>
+            <td>
+              <div class="input-suffix">
+                <input id="simConversaoSite" type="number" min="0" max="100" step="0.5" value="15" />%
+              </div>
+            </td>
+            <td>Meta realista de pedidos que migram para o canal proprio via WhatsApp.</td>
+          </tr>
+          <tr>
+            <td>Custos (mensal)</td>
+            <td class="sim-costs">
+              <div class="input-prefix">R$
+                <input id="simCustoSite" type="number" min="0" step="0.01" value="55" />
+              </div>
+              <div class="input-prefix">R$
+                <input id="simCustoAnota" type="number" min="0" step="0.01" value="90" />
+              </div>
+              <span class="small">Site + Anota AI</span>
+            </td>
+            <td>Valores usuais para manutencao do site e plano Anota AI.</td>
+          </tr>
+        </tbody>
       </table>
     </div>
 
-    <h3>Foco na dor do cliente</h3>
-    <p class="small">Argumento-chave para gastronomia:</p>
-    <div class="callout">
-      "Seu negócio está pagando altas taxas para aplicativos de terceiros (iFood/Rappi), e seu cliente não tem onde ver seu cardápio com qualidade e facilidade fora das redes sociais. Eu crio um site que transforma visitantes em pedidos diretos via WhatsApp e economiza seu dinheiro."
+    <div class="cards-grid sim-grid">
+      <div class="callout stat-card">
+        <div class="card-head">
+          <span class="muted">Passo 1</span>
+          <span class="tag high">Volume</span>
+        </div>
+        <p class="stat-number" id="simPedidosMes">1.500</p>
+        <p class="small">Pedidos mensais totais (A x 30)</p>
+        <p class="stat-number" id="simPedidosMigrados">225</p>
+        <p class="small">Pedidos migrados (x D)</p>
+      </div>
+      <div class="callout stat-card">
+        <div class="card-head">
+          <span class="muted">Passo 2</span>
+          <span class="tag high">Faturamento</span>
+        </div>
+        <p class="stat-number" id="simFaturamentoMigrado">R$ 7.875,00</p>
+        <p class="small">Faturamento migrado (pedidos migrados x B)</p>
+        <p class="stat-number" id="simEconomiaBruta">R$ 1.575,00</p>
+        <p class="small">Economia bruta (x C)</p>
+      </div>
+      <div class="callout stat-card highlight">
+        <div class="card-head">
+          <span class="muted">Passo 3</span>
+          <span class="tag veryhigh">Resultado</span>
+        </div>
+        <p class="stat-number" id="simEconomiaLiquida">R$ 1.430,00</p>
+        <p class="small">Economia liquida apos custos</p>
+        <p class="small" id="simResumoCustos">- R$ 55,00 site | - R$ 90,00 Anota AI</p>
+      </div>
     </div>
 
-    <h3>Próximos passos táticos</h3>
-    <ol class="step-list">
-      <li>Baixar/printar páginas atuais (Facebook, Aiqfome, iFood) para mostrar gaps de usabilidade.</li>
-      <li>Prototipar rapidamente um cardápio com botão de pedido direto para apresentar no primeiro contato.</li>
-      <li>Mensurar potencial: Altíssimo (Dom Garcia, 2 Brothers) e Alto (Tio Gil, Tio Sogro & Sabor da Família).</li>
-      <li>Enviar pitch personalizado via WhatsApp com link de demo do site e proposta de redução de taxas.</li>
-    </ol>
+    <div class="chart-wrap card">
+      <canvas id="simChart"></canvas>
+    </div>
   </main>
 
   <script src="js/data.js"></script>

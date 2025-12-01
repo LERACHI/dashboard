@@ -203,6 +203,61 @@ th {
   background:#334155;
 }
 
+.sim-table input {
+  width:100%;
+  padding:8px 10px;
+  background:var(--glass);
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.08);
+  color:#fff;
+}
+.input-prefix,
+.input-suffix {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:var(--glass);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:8px;
+  padding:6px 8px;
+}
+.input-prefix input,
+.input-suffix input {
+  background:transparent;
+  border:none;
+  color:#fff;
+  padding:0;
+  width:100%;
+}
+.input-prefix input:focus,
+.input-suffix input:focus,
+.sim-table input:focus {
+  outline:1px solid rgba(6,182,212,0.5);
+}
+.sim-costs {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.sim-grid {
+  margin:14px 0;
+}
+.stat-card {
+  border:1px solid rgba(255,255,255,0.08);
+}
+.stat-number {
+  font-size:22px;
+  font-weight:700;
+  margin:4px 0;
+}
+.stat-card.highlight {
+  background: linear-gradient(135deg, rgba(236,72,153,0.12), rgba(6,182,212,0.12));
+}
+.sim-table td:last-child {
+  width: 33%;
+}
+
 .modal {
   position: fixed;
   left:0; top:0;
@@ -260,4 +315,11 @@ th {
   .container {
     grid-template-columns: 1fr;
   }
+}
+.sim-table td {
+  vertical-align:middle;
+}
+.sim-table td:last-child {
+  width:34%;
+  padding-left:16px;
 }
