@@ -13,21 +13,28 @@
     leads.forEach(item => {
       const card = document.createElement("div");
       card.className = "card analysis-card";
+      const tagClass = item.potencial === "Altíssimo" || item.potencial === "Alt�ssimo" ? "tag veryhigh" : "tag high";
       card.innerHTML = `
         <div class="card-head">
           <h3>${item.estabelecimento}</h3>
-          <span class="tag ${item.potencial === "Altíssimo" ? "veryhigh" : "high"}">${item.potencial}</span>
+          <span class="${tagClass}">${item.potencial}</span>
         </div>
         <p class="muted">${item.status_online}</p>
         <div class="callout-block">
+          <strong>Potencial detalhado:</strong>
+          <p>${item.potencial_detalhe || "-"}</p>
+          <strong>Dor atual:</strong>
+          <p>${item.tipo_dor || "-"}</p>
           <strong>Status Atual:</strong>
-          <p>${item.status_atual}</p>
+          <p>${item.status_atual || "-"}</p>
           <strong>Oportunidade:</strong>
-          <p>${item.oportunidade}</p>
+          <p>${item.oportunidade || "-"}</p>
           <strong>Análise:</strong>
-          <p>${item.analise}</p>
+          <p>${item.analise || "-"}</p>
+          <strong>Pitch/CTA:</strong>
+          <p>${item.pitch || "-"}</p>
           <strong>Sua Proposta:</strong>
-          <p>${item.proposta}</p>
+          <p>${item.proposta || "-"}</p>
         </div>
         <div class="card-actions"></div>
       `;

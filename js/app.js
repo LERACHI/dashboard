@@ -20,6 +20,7 @@ const resetBtn = document.getElementById("reset");
 const exportBtn = document.getElementById("exportCSV");
 const tableBody = document.querySelector("#leadsTable tbody");
 const detailGrid = document.getElementById("filteredDetails");
+const packSuggestions = document.getElementById("packSuggestions");
 
 filterPot.addEventListener("change", applyFilters);
 search.addEventListener("input", applyFilters);
@@ -45,6 +46,7 @@ function applyFilters() {
   updateSummary(arr);
   updateChart(arr);
   renderDetails(arr);
+  renderPacks(arr);
 }
 
 resetBtn.onclick = () => {
@@ -209,6 +211,39 @@ function renderDetails(arr){
     `;
     detailGrid.appendChild(card);
   });
+}
+
+function renderPacks(arr){
+  if (!packSuggestions) return;
+  const resumos = window.costData?.resumosCliente || [];
+  if (!arr.length) {
+    packSuggestions.innerHTML = `<p class="small muted">Nenhum lead filtrado.</p>`;
+    return;
+  }
+
+  packSuggestions.innerHTML = "";
+
+  const normalizeName = (str) => normalize(str || "").toLowerCase();
+
+  arr.forEach(item => {
+    const nomeLead = normalizeName(item.estabelecimento);
+    const match = resumos.find(r => nomeLead.includes(normalizeName(r.cliente)));
+    if (!match) return;
+
+    const card = document.createElement("div");
+    card.className = "card pricing-card";
+    card.innerHTML = `
+      <h3>${match.cliente}</h3>
+      <p><strong>Criação:</strong> ${match.criacao}</p>
+      <p><strong>Manutenção:</strong> ${match.manutencao}</p>
+      <p class="small">${match.foco}</p>
+    `;
+    packSuggestions.appendChild(card);
+  });
+
+  if (!packSuggestions.children.length) {
+    packSuggestions.innerHTML = `<p class="small muted">Sem pacote sugerido para esses leads.</p>`;
+  }
 }
 
 /* ------------------------------------------------------------
