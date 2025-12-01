@@ -97,19 +97,19 @@ window.costData = {
       nome: "Starter (Cardápio Direto)",
       publico: "Tio Gil Lanches, 2 Brothers (prioridade em pedidos)",
       inclui: "1 página principal + 1 contato, botão de WhatsApp gigante, link para cardápio digital, design responsivo.",
-      preco: "R$ 1.200,00 – R$ 1.800,00"
+      preco: "R$ 1.200,00 - R$ 1.800,00"
     },
     {
       nome: "PME Ideal (Vitrine Profissional)",
       publico: "Dom Garcia, Tio Sogro (prioridade em marca e confiança)",
       inclui: "3-5 páginas (Home, Quem Somos, Cardápio/Serviços, Galeria, Contato), design premium, SEO básico, integração WhatsApp, formulário.",
-      preco: "R$ 1.800,00 – R$ 2.500,00"
+      preco: "R$ 1.800,00 - R$ 2.500,00"
     },
     {
       nome: "Avançado (Vitrine + Blog)",
       publico: "Empresas maiores / turismo / pousadas",
       inclui: "5+ páginas, tudo do PME Ideal + blog/notícias e otimizações avançadas de performance.",
-      preco: "R$ 2.500,00 – R$ 3.500,00"
+      preco: "R$ 2.500,00 - R$ 3.500,00"
     }
   ],
   resumosCliente: [

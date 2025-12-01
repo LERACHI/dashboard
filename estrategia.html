@@ -2,26 +2,26 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <title>Estrategia de Prospecao</title>
+  <title>Estratégia de Prospecção</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <header>
-    <h1>Estrategia de Prospecao</h1>
+    <h1>Estratégia de Prospecção</h1>
     <nav class="inline-nav">
       <a href="index.html">Dashboard</a>
-      <a href="estrategia.html">Estrategia</a>
-      <a href="analise.html">Analise</a>
+      <a href="estrategia.html">Estratégia</a>
+      <a href="analise.html">Análise</a>
       <a href="contato.html">Contato</a>
       <a href="custos.html">Custos</a>
     </nav>
   </header>
 
   <main class="card">
-    <h3>Simulacao automatica de economia</h3>
-    <p class="small">Edite os valores e use o grafico na hora para mostrar quanto ele economiza.</p>
+    <h3>Simulação automática de economia</h3>
+    <p class="small">Edite os valores e use o gráfico na hora para mostrar quanto ele economiza.</p>
 
     <div class="table-wrapper">
       <table class="sim-table">
@@ -34,7 +34,7 @@
         </thead>
         <tbody>
           <tr>
-            <td><strong>A.</strong> Pedidos diarios (total)</td>
+            <td><strong>A.</strong> Pedidos diários (total)</td>
             <td>
               <input id="simPedidosDia" type="number" min="0" value="50" />
               <span class="small">pedidos/dia</span>
@@ -42,16 +42,16 @@
             <td>Estimativa ou dado real.</td>
           </tr>
           <tr>
-            <td><strong>B.</strong> Ticket medio (TM)</td>
+            <td><strong>B.</strong> Ticket médio (TM)</td>
             <td>
               <div class="input-prefix">R$
                 <input id="simTicket" type="number" min="0" step="0.01" value="35" />
               </div>
             </td>
-            <td>Estimativa do valor medio de um pedido.</td>
+            <td>Estimativa do valor médio de um pedido.</td>
           </tr>
           <tr>
-            <td><strong>C.</strong> Taxa media (iFood/Rappi)</td>
+            <td><strong>C.</strong> Taxa média (iFood/Rappi)</td>
             <td>
               <div class="input-suffix">
                 <input id="simTaxaPlataforma" type="number" min="0" max="100" step="0.5" value="20" />%
@@ -60,13 +60,13 @@
             <td>Taxa comum cobrada pelas plataformas de terceiros.</td>
           </tr>
           <tr>
-            <td><strong>D.</strong> Taxa de conversao para o site</td>
+            <td><strong>D.</strong> Taxa de conversão para o site</td>
             <td>
               <div class="input-suffix">
                 <input id="simConversaoSite" type="number" min="0" max="100" step="0.5" value="15" />%
               </div>
             </td>
-            <td>Meta realista de pedidos que migram para o canal proprio via WhatsApp.</td>
+            <td>Meta realista de pedidos que migram para o canal próprio via WhatsApp.</td>
           </tr>
           <tr>
             <td>Custos (mensal)</td>
@@ -79,7 +79,7 @@
               </div>
               <span class="small">Site + Anota AI</span>
             </td>
-            <td>Valores usuais para manutencao do site e plano Anota AI.</td>
+            <td>Valores usuais para manutenção do site e plano Anota AI.</td>
           </tr>
         </tbody>
       </table>
@@ -112,7 +112,7 @@
           <span class="tag veryhigh">Resultado</span>
         </div>
         <p class="stat-number" id="simEconomiaLiquida">R$ 1.430,00</p>
-        <p class="small">Economia liquida apos custos</p>
+        <p class="small">Economia líquida após custos</p>
         <p class="small" id="simResumoCustos">- R$ 55,00 site | - R$ 90,00 Anota AI</p>
       </div>
     </div>

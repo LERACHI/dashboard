@@ -35,7 +35,7 @@
 
   renderRows();
 
-  // --- Simulacao de economia ---
+  // --- Simulação de economia ---
   const simInputs = {
     pedidosDia: document.getElementById("simPedidosDia"),
     ticket: document.getElementById("simTicket"),
@@ -77,7 +77,7 @@
     simChart = new Chart(simCtx, {
       type: "bar",
       data: {
-        labels: ["Faturamento migrado", "Economia bruta", "Economia liquida"],
+        labels: ["Faturamento migrado", "Economia bruta", "Economia líquida"],
         datasets: [{
           label: "Resultados (R$)",
           data: dataset,

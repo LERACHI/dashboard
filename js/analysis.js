@@ -13,7 +13,7 @@
     leads.forEach(item => {
       const card = document.createElement("div");
       card.className = "card analysis-card";
-      const tagClass = item.potencial === "Altíssimo" || item.potencial === "Alt�ssimo" ? "tag veryhigh" : "tag high";
+      const tagClass = item.potencial === "Altíssimo" ? "tag veryhigh" : "tag high";
       card.innerHTML = `
         <div class="card-head">
           <h3>${item.estabelecimento}</h3>

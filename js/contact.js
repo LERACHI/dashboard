@@ -22,11 +22,11 @@
     leads.forEach(item => {
       const card = document.createElement("div");
       card.className = "card contact-card";
-      const tagClass = item.potencial === "Altíssimo" || item.potencial === "Altissimo" || item.potencial === "Alt�ssimo" ? "veryhigh" : "high";
+      const tagClass = item.potencial === "Altíssimo" ? "tag veryhigh" : "tag high";
       card.innerHTML = `
         <div class="card-head">
           <h3>${item.estabelecimento}</h3>
-          <span class="tag ${tagClass}">${item.potencial}</span>
+          <span class="${tagClass}">${item.potencial}</span>
         </div>
         <div class="cta-actions"></div>
       `;
