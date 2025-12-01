@@ -33,40 +33,20 @@
 
     <h3>Templates por cliente</h3>
     <div id="contactGrid" class="contact-grid"></div>
-
-    <h3>Lista priorizada</h3>
-    <p class="small">Status indicado na pesquisa + potencial de servico. Use o botao para abrir o pitch no WhatsApp Web.</p>
-    <div class="table-wrapper">
-      <table id="strategyTable">
-        <thead>
-          <tr>
-            <th>Estabelecimento</th>
-            <th>Status indicado</th>
-            <th>Potencial</th>
-            <th>Acao</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <h3>Foco na dor do cliente</h3>
-    <p class="small">Argumento-chave para gastronomia:</p>
-    <div class="callout">
-      "Seu negocio esta pagando altas taxas para aplicativos de terceiros (iFood/Rappi), e seu cliente nao tem onde ver seu cardapio com qualidade e facilidade fora das redes sociais. Eu crio um site que transforma visitantes em pedidos diretos via WhatsApp e economiza seu dinheiro."
-    </div>
-
-    <h3>Proximos passos taticos</h3>
-    <ol class="step-list">
-      <li>Baixar/printar paginas atuais (Facebook, Aiqfome, iFood) para mostrar gaps de usabilidade.</li>
-      <li>Prototipar rapidamente um cardapio com botao de pedido direto para apresentar no primeiro contato.</li>
-      <li>Mensurar potencial: Altissimo (Dom Garcia, 2 Brothers) e Alto (Tio Gil, Tio Sogro & Sabor da Familia).</li>
-      <li>Enviar pitch personalizado via WhatsApp com link de demo do site e proposta de reducao de taxas.</li>
-    </ol>
   </main>
+
+  <div id="notesModal" class="modal">
+    <div class="modal-content">
+      <h2 id="notesTitle">Notas</h2>
+      <textarea id="notesText"></textarea>
+      <div class="modal-actions">
+        <button id="saveNote">Salvar</button>
+        <button id="closeModal">Fechar</button>
+      </div>
+    </div>
+  </div>
 
   <script src="js/data.js"></script>
   <script src="js/contact.js"></script>
-  <script src="js/strategy.js"></script>
 </body>
 </html>

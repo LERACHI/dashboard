@@ -1,54 +1,56 @@
 ﻿(function(){
   const leads = window.leadsData || [];
   const grid = document.getElementById("contactGrid");
+  const notesModal = document.getElementById("notesModal");
+  const notesText = document.getElementById("notesText");
+  const notesTitle = document.getElementById("notesTitle");
+  const saveNoteBtn = document.getElementById("saveNote");
+  const closeModalBtn = document.getElementById("closeModal");
+  let currentNoteKey = null;
 
-  function openWA(estabelecimento, texto) {
-    const url = `https://wa.me/?text=${encodeURIComponent(texto + "\n(" + estabelecimento + ")")}`;
-    window.open(url, "_blank");
-  }
-
-  async function copyText(texto){
-    try {
-      await navigator.clipboard.writeText(texto);
-      alert("Mensagem copiada!");
-    } catch (e) {
-      alert("Não foi possível copiar. Copie manualmente.");
-    }
+  function openNotes(estabelecimento) {
+    currentNoteKey = "nota_contato_" + estabelecimento.replace(/\s+/g, "_");
+    const saved = localStorage.getItem(currentNoteKey) || "";
+    notesText.value = saved;
+    notesTitle.innerHTML = `Notas - <b>${estabelecimento}</b>`;
+    notesModal.classList.add("active");
   }
 
   function render(){
+    if (!grid) return;
     grid.innerHTML = "";
     leads.forEach(item => {
       const card = document.createElement("div");
       card.className = "card contact-card";
+      const tagClass = item.potencial === "Altíssimo" || item.potencial === "Altissimo" || item.potencial === "Alt�ssimo" ? "veryhigh" : "high";
       card.innerHTML = `
         <div class="card-head">
           <h3>${item.estabelecimento}</h3>
-          <span class="tag ${item.potencial === "Altíssimo" ? "veryhigh" : "high"}">${item.potencial}</span>
+          <span class="tag ${tagClass}">${item.potencial}</span>
         </div>
-        <p class="muted">Dor atual: ${item.cta.dor}</p>
-        <p><strong>Solução:</strong> ${item.cta.solucao}</p>
-        <p><strong>CTA:</strong> ${item.cta.pergunta}</p>
         <div class="cta-actions"></div>
       `;
 
       const actions = card.querySelector(".cta-actions");
-      const copyBtn = document.createElement("button");
-      copyBtn.className = "notes-btn";
-      copyBtn.textContent = "Copiar mensagem";
-      copyBtn.addEventListener("click", () => copyText(item.cta.mensagem));
-
-      const sendBtn = document.createElement("button");
-      sendBtn.className = "wa-btn";
-      sendBtn.textContent = "Abrir no WhatsApp";
-      sendBtn.addEventListener("click", () => openWA(item.estabelecimento, item.cta.mensagem));
-
-      actions.appendChild(copyBtn);
-      actions.appendChild(sendBtn);
+      const noteBtn = document.createElement("button");
+      noteBtn.className = "notes-btn";
+      noteBtn.textContent = "Nota";
+      noteBtn.addEventListener("click", () => openNotes(item.estabelecimento));
+      actions.appendChild(noteBtn);
 
       grid.appendChild(card);
     });
   }
+
+  saveNoteBtn.addEventListener("click", () => {
+    if (!currentNoteKey) return;
+    localStorage.setItem(currentNoteKey, notesText.value);
+    notesModal.classList.remove("active");
+  });
+
+  closeModalBtn.addEventListener("click", () => {
+    notesModal.classList.remove("active");
+  });
 
   render();
 })();

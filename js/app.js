@@ -1,40 +1,11 @@
-﻿/* ------------------------------------------------------------
-   BLOCO 1 – BASE DE DADOS
+/* ------------------------------------------------------------
+   BLOCO 1 - BASE DE DADOS
 ------------------------------------------------------------ */
 
-const leads = window.leadsData || [
-  {
-    estabelecimento: "Tio Gil Lanches",
-    status_online: "iFood",
-    potencial: "Altíssimo",
-    tipo_dor: "Alta dependência de iFood",
-    pitch: "Você pode economizar taxas com pedidos diretos"
-  },
-  {
-    estabelecimento: "Dom Garcia",
-    status_online: "Site WordPress antigo",
-    potencial: "Altíssimo",
-    tipo_dor: "Site desatualizado",
-    pitch: "Atualização profissional e moderna aumenta pedidos"
-  },
-  {
-    estabelecimento: "2 Brothers",
-    status_online: "Cardápio digital genérico",
-    potencial: "Alto",
-    tipo_dor: "Identidade visual fraca",
-    pitch: "Um site-cardápio mais bonito aumenta percepção de valor"
-  },
-  {
-    estabelecimento: "Tio Sogro",
-    status_online: "Site pouco utilizado",
-    potencial: "Altíssimo",
-    tipo_dor: "Baixa conversão",
-    pitch: "Análise gratuita e otimização"
-  }
-];
+const leads = window.leadsData || [];
 
 /* ------------------------------------------------------------
-   BLOCO 2 – WHATSAPP E CONTROLES
+   BLOCO 2 - WHATSAPP E CONTROLES
 ------------------------------------------------------------ */
 
 function openWA(estabelecimento, mensagem) {
@@ -48,15 +19,20 @@ const search = document.getElementById("search");
 const resetBtn = document.getElementById("reset");
 const exportBtn = document.getElementById("exportCSV");
 const tableBody = document.querySelector("#leadsTable tbody");
+const detailGrid = document.getElementById("filteredDetails");
 
 filterPot.addEventListener("change", applyFilters);
 search.addEventListener("input", applyFilters);
+
+function normalize(texto){
+  return (texto || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
 
 function applyFilters() {
   let arr = [...leads];
 
   if (filterPot.value !== "Todos") {
-    arr = arr.filter(item => item.potencial === filterPot.value);
+    arr = arr.filter(item => normalize(item.potencial) === normalize(filterPot.value));
   }
 
   if (search.value.trim() !== "") {
@@ -68,6 +44,7 @@ function applyFilters() {
   renderTable(arr);
   updateSummary(arr);
   updateChart(arr);
+  renderDetails(arr);
 }
 
 resetBtn.onclick = () => {
@@ -91,20 +68,20 @@ exportBtn.onclick = () => {
 function updateSummary(arr) {
   document.getElementById("totalCount").innerText = arr.length;
   document.getElementById("countVeryHigh").innerText =
-    arr.filter(r => r.potencial === "Altíssimo").length;
+    arr.filter(r => normalize(r.potencial) === "Altissimo").length;
   document.getElementById("countHigh").innerText =
-    arr.filter(r => r.potencial === "Alto").length;
+    arr.filter(r => normalize(r.potencial) === "Alto").length;
 }
 
 /* ------------------------------------------------------------
-   BLOCO 3 – RENDERIZAÇÃO DA TABELA + BOTÃO DE NOTAS
+   BLOCO 3 - RENDERIZACAO DA TABELA + BOTAO DE NOTAS
 ------------------------------------------------------------ */
 
 function renderTable(arr){
   tableBody.innerHTML = "";
 
   arr.forEach(r => {
-    const cls = r.potencial === "Altíssimo" ? "tag veryhigh" : "tag high";
+    const cls = normalize(r.potencial) === "Altissimo" ? "tag veryhigh" : "tag high";
 
     tableBody.innerHTML += `
       <tr>
@@ -124,15 +101,15 @@ function renderTable(arr){
 }
 
 /* ------------------------------------------------------------
-   BLOCO 4 – GRÁFICO (Chart.js)
+   BLOCO 4 - GRAFICO (Chart.js)
 ------------------------------------------------------------ */
 
 let chart;
 
 function updateChart(arr){
   const counts = {
-    Altíssimo: arr.filter(r => r.potencial === "Altíssimo").length,
-    Alto: arr.filter(r => r.potencial === "Alto").length
+    Altissimo: arr.filter(r => normalize(r.potencial) === "Altissimo").length,
+    Alto: arr.filter(r => normalize(r.potencial) === "Alto").length
   };
 
   const ctx = document.getElementById("potChart").getContext("2d");
@@ -142,10 +119,10 @@ function updateChart(arr){
   chart = new Chart(ctx, {
     type: "bar",
     data: {
-      labels: ["Altíssimo", "Alto"],
+      labels: ["Altissimo", "Alto"],
       datasets: [{
         label: "Quantidade",
-        data: [counts.Altíssimo, counts.Alto],
+        data: [counts.Altissimo, counts.Alto],
         backgroundColor: ["#ec4899", "#06b6d4"],
         borderRadius: 8
       }]
@@ -169,7 +146,7 @@ function updateChart(arr){
 }
 
 /* ------------------------------------------------------------
-   BLOCO 5 – SISTEMA DE NOTAS (LOCALSTORAGE)
+   BLOCO 5 - SISTEMA DE NOTAS (LOCALSTORAGE)
 ------------------------------------------------------------ */
 
 const notesModal = document.getElementById("notesModal");
@@ -186,7 +163,7 @@ function openNotes(estabelecimento) {
   const saved = localStorage.getItem(currentNoteKey) || "";
 
   notesText.value = saved;
-  notesTitle.innerHTML = `Notas – <b>${estabelecimento}</b>`;
+  notesTitle.innerHTML = `Notas - <b>${estabelecimento}</b>`;
   notesModal.classList.add("active");
 }
 
@@ -203,7 +180,39 @@ closeModalBtn.addEventListener("click", () => {
 });
 
 /* ------------------------------------------------------------
-   BLOCO 6 – INICIALIZAÇÃO
+   BLOCO 6 - DETALHES DO FILTRO
+------------------------------------------------------------ */
+
+function renderDetails(arr){
+  if (!detailGrid) return;
+  if (!arr.length) {
+    detailGrid.innerHTML = `<p class="small muted">Nenhum resultado encontrado com esse filtro.</p>`;
+    return;
+  }
+
+  detailGrid.innerHTML = "";
+  arr.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "card detail-card";
+    card.innerHTML = `
+      <div class="card-head">
+        <h3>${item.estabelecimento}</h3>
+        <span class="tag ${normalize(item.potencial) === "Altissimo" ? "veryhigh" : "high"}">${item.potencial}</span>
+      </div>
+      <p class="muted">${item.status_online || ""}</p>
+      <p><strong>Dor:</strong> ${item.tipo_dor || "-"}</p>
+      <p><strong>Pitch/CTA:</strong> ${item.pitch || "-"}</p>
+      <p><strong>Status atual:</strong> ${item.status_atual || "-"}</p>
+      <p><strong>Oportunidade:</strong> ${item.oportunidade || "-"}</p>
+      <p><strong>Analise:</strong> ${item.analise || "-"}</p>
+      <p><strong>Proposta:</strong> ${item.proposta || "-"}</p>
+    `;
+    detailGrid.appendChild(card);
+  });
+}
+
+/* ------------------------------------------------------------
+   BLOCO 7 - INICIALIZACAO
 ------------------------------------------------------------ */
 
 applyFilters();

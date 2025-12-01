@@ -2,8 +2,9 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <title>Dashboard Gastronomia - Foz do Iguacu</title>
+  <title>Dashboard Gastronomia - Foz do Iguaçu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -11,19 +12,19 @@
 <body>
 
 <header>
-  <h1>Dashboard - Potenciais Clientes de Gastronomia</h1>
+  <h1>Dashboard – Potenciais Clientes de Gastronomia</h1>
   <nav class="inline-nav">
     <a href="index.html">Dashboard</a>
-    <a href="leads.html">Cartoes</a>
+    <a href="leads.html">Cartões</a>
     <a href="resumo.html">Resumo</a>
-    <a href="estrategia.html">Estrategia</a>
-    <a href="analise.html">Analise</a>
+    <a href="estrategia.html">Estratégia</a>
+    <a href="analise.html">Análise</a>
     <a href="contato.html">Contato</a>
     <a href="custos.html">Custos</a>
   </nav>
 </header>
 
-<div class="container single">
+<div class="container">
 
   <main class="card">
 
@@ -31,7 +32,7 @@
       <label for="filterPot">Filtrar por potencial:</label>
       <select id="filterPot">
         <option value="Todos">Todos</option>
-        <option value="Altissimo">Altissimo</option>
+        <option value="Altíssimo">Altíssimo</option>
         <option value="Alto">Alto</option>
       </select>
 
@@ -47,18 +48,12 @@
     </div>
 
     <div class="summary">
-      <strong>Resumo rapido:</strong>
+      <strong>Resumo rápido:</strong>
       <p>
         Total: <span id="totalCount">0</span> |
-        Altissimo: <span id="countVeryHigh">0</span> |
+        Altíssimo: <span id="countVeryHigh">0</span> |
         Alto: <span id="countHigh">0</span>
       </p>
-    </div>
-
-    <div class="card detail-wrapper">
-      <h3>Resultados do filtro</h3>
-      <p class="small">Todos os dados completos dos leads filtrados/pesquisados.</p>
-      <div id="filteredDetails" class="detail-grid"></div>
     </div>
 
     <div class="card table-wrapper">
@@ -82,6 +77,46 @@
 
   </main>
 
+  <aside class="card">
+
+    <h2>Ações rápidas</h2>
+
+    <button class="wa-btn"
+      onclick="openWA(
+        'Tio Gil Lanches',
+        'Olá! Vi que vocês dependem de apps como iFood. Posso mostrar um site que gere pedidos diretos e economize taxas?'
+      )">
+      WhatsApp – Tio Gil
+    </button>
+
+    <button class="wa-btn"
+      onclick="openWA(
+        'Dom Garcia Pizzaria Gourmet',
+        'Olá! Vi que o cardápio está no Facebook/WhatsApp. Posso enviar uma proposta de site com cardápio e pedido direto?'
+      )">
+      WhatsApp – Dom Garcia
+    </button>
+
+    <button class="wa-btn"
+      onclick="openWA(
+        '2 Brothers',
+        'Olá! Sei que vocês usam WhatsApp/FB para pedidos. Posso criar um site vitrine com botão de pedido rápido?'
+      )">
+      WhatsApp – 2 Brothers
+    </button>
+
+    <button class="wa-btn"
+      onclick="openWA(
+        'Tio Sogro & Sabor da Família',
+        'Olá! Vi que vocês aparecem em apps de delivery. Um site próprio pode destacar a marca e reduzir dependência. Vamos falar?'
+      )">
+      WhatsApp – Tio Sogro
+    </button>
+
+    <p class="small">Botões abrem o WhatsApp Web com mensagens prontas.</p>
+
+  </aside>
+
 </div>
 
 <div id="notesModal" class="modal">
@@ -102,3 +137,4 @@
 
 </body>
 </html>
+

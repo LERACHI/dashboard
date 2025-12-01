@@ -37,6 +37,9 @@ header h1 {
   grid-template-columns: 1fr 330px;
   gap:20px;
 }
+.container.single {
+  grid-template-columns: 1fr;
+}
 
 .card {
   background:var(--card);
@@ -255,7 +258,20 @@ th {
   background: linear-gradient(135deg, rgba(236,72,153,0.12), rgba(6,182,212,0.12));
 }
 .sim-table td:last-child {
-  width: 33%;
+  width: 34%;
+  padding-left:16px;
+}
+.detail-wrapper {
+  margin-top:12px;
+}
+.detail-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap:12px;
+  margin-top:10px;
+}
+.detail-card {
+  border:1px solid rgba(255,255,255,0.08);
 }
 
 .modal {
